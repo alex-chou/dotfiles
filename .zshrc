@@ -11,11 +11,11 @@ source $ZSH/oh-my-zsh.sh
 
 # Put aliases here
 alias ls='ls --color=auto'
-alias ll='ls-lA'
-alias la='ls-A'
+alias ll='ls -lA'
+alias la='ls -A'
 
 # Reload your zsh
-alias reload='source ~/.zshrc'
+alias reload='. ~/.zshrc'
 
 # Change to these directories
 alias wspc='cd ~/workspace'
