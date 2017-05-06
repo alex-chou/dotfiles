@@ -22,3 +22,10 @@ alias wspc='cd ~/workspace'
 alias gosrc='cd ~/go/src'
 alias alex-chou='cd ~/go/src/github.com/alex-chou'
 alias dotfiles='cd ~/workspace/dotfiles'
+
+# History for zsh
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
