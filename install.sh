@@ -12,10 +12,31 @@ git config --global alias.scrub "!git ls-files --deleted -z | xargs -0 git rm"
 git config --global user.name "alex-chou"
 git config --global user.email "chou.alexander@gmail.com"
 
-dotfiles=(      \
-    .zshrc       \
-    .zprofile    \
+########################
+# SETUP CURL (for vim) #
+########################
+if [ ! $(command -v curl) ] ; then
+    echo "You do not have curl installed, would you like to install it?"
+    select yn in "Yes" "No" ; do
+        case $yn in
+            Yes ) sudo apt-get -y install curl; break;;
+            No ) exit;;
+        esac
+    done
+fi
+
+##################
+# DOTFILES SETUP #
+##################
+dotfiles=(       \
     .tmux.conf   \
+    .vimrc       \
+    .zprofile    \
+    .zshrc       \
+)
+
+dotdirs=(       \
+    .vim        \
 )
 
 OGFILES=$BASE/.og-dotfiles
@@ -37,4 +58,17 @@ for df in "${dotfiles[@]}"; do
     ln -s $BASE/$df ~/$df
 done
 
+for dd in "${dotdirs[@]}"; do
+    if [ -e ~/$dd ]; then
+        if [ -L ~/$dd ]; then
+            echo "Removing link [ $dd -> $(readlink ~/$dd) ]"
+            rm -f ~/$dd
+        else
+            echo "Moving file [ ~/$dd -> $OGFILES/$dd ]"
+            mv -f ~/$dd $OGFILES/$dd
+        fi
+    fi
 
+    echo Linking $dd
+    ln -s $BASE/$dd ~/$dd
+done

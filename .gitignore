@@ -1,1 +1,4 @@
 .og-dotfiles
+.vim/autoload
+.vim/plugged
+.vim/undodir/*
